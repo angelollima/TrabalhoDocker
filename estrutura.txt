@@ -1,0 +1,15 @@
+fullstack-docker-app/
+├── docker-compose.yml
+├── frontend/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── server.js
+│   └── public/
+│       ├── index.html
+│       ├── style.css
+│       └── script.js
+├── backend/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── server.js
+└── README.md
