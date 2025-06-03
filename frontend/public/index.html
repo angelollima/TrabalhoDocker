@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstack Docker App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Aplicação Full-Stack com Docker</h1>
+
+        <div class="section">
+            <h2>Adicionar Item</h2>
+            <form id="addForm">
+                <input type="text" id="itemName" placeholder="Nome do item" required>
+                <input type="text" id="itemDescription" placeholder="Descrição" required>
+                <button type="submit">Adicionar</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>Lista de Itens</h2>
+            <button id="loadItems">Carregar Itens</button>
+            <div id="itemsList"></div>
+        </div>
+
+        <div class="section">
+            <h2>Cache Status</h2>
+            <button id="checkCache">Verificar Cache</button>
+            <div id="cacheStatus"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
