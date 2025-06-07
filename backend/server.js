@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const redis = require('redis');
 const cors = require('cors');
 
@@ -157,6 +157,35 @@ app.get('/health', (req, res) => {
         redis: !!redisClient,
         timestamp: new Date().toISOString()
     });
+});
+
+//DELETE - Deletar um item
+app.delete('/api/items/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Deleta o item da coleção usando o ID
+        const result = await db.collection('items').deleteOne({ _id: new ObjectId(id) });
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ error: 'Item não encontrado' });
+        }
+
+        // Limpar cache para forçar atualização 
+        if (redisClient) {
+            try {
+                await redisClient.del('all_items'); // 
+                console.log('Cache limpo após exclusão');
+            } catch (cacheError) {
+                console.log('Erro ao limpar cache:', cacheError);
+            }
+        }
+
+        res.status(200).json({ message: 'Item removido com sucesso' });
+    } catch (error) {
+        console.error('Erro ao deletar item:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
 });
 
 // Inicializar conexões e servidor

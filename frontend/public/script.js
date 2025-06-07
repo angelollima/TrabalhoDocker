@@ -52,12 +52,31 @@ async function loadItems() {
                 <h4>${item.name}</h4>
                 <p>${item.description}</p>
                 <small>Criado em: ${new Date(item.createdAt).toLocaleString()}</small>
+                <button class="delete-btn" onclick="deleteItem('${item._id}')">Remover</button>
             `;
             itemsList.appendChild(itemDiv);
         });
     } catch (error) {
         console.error('Erro:', error);
         document.getElementById('itemsList').innerHTML = '<p class="error">Erro ao carregar itens</p>';
+    }
+}
+
+async function deleteItem(id) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/items/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            alert('Item removido com sucesso!')
+            loadItems();
+        } else {
+            alert('Erro ao remover item');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro de conexão');
     }
 }
 
